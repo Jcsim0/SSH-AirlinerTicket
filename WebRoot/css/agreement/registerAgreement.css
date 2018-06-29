@@ -1,0 +1,17 @@
+@charset "utf-8";
+body{font-family:"Microsoft YaHei UI","Microsoft YaHei","微软雅黑","SimSun","宋体","Segoe UI",Tahoma,Helvetica,Sans-Serif;;color:#333; font-size:12px;background:#fff;}
+html,bod,form,input,select,textarea,div,p,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,blockquote,fieldset,div,strong,label,em{margin:0;padding:0;text-align:left;}
+.warp{width: 100%; padding: 20px; background: #f5f5f5;}
+.content{ width: 1040px; margin: 0 auto; padding:30px 80px; font-size: 14px; background: #fff;}
+.title{padding-top:15px; text-align: center; font-size: 18px;}
+.pTop{padding-top: 15px;}
+.clauseDL dt{padding-top: 20px; font-size: 16px; font-weight: bold;}
+.clauseDL dd{padding-top: 15px;}
+.clauseUL li{padding: 15px 0 0 20px;}
+.clauseTable{width:80%; margin:15px auto; border-spacing: 0; border-top: 1px solid #000; border-left: 1px solid #000;}
+.clauseTable tr th,.clauseTable tr td{border-right: 1px solid #000;border-bottom: 1px solid #000;}
+.clauseTable tr th{padding: 5px; background: #f48385}
+.clauseTable tr td{padding: 5px 10px;}
+.clauseTable .width33{width: 33%;}
+.content .logo {width: auto;height: auto;margin: 0 auto;display: block;}
+.grayBg{width: 80%; margin: 0 auto; padding: 5px; border: 1px solid #000; background: #d9d9d9}

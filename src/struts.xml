@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	
+	<!-- 声明包 -->
+    <package name="myPackage" extends="struts-default" >
+    	<!-- Users -->
+    	<action name="userManagerAction" class="usersAction"> 	
+ 	    	<!-- 前台用户登录成功的映射页面 -->
+	 	    <result name="loginSucc">./index.jsp</result>	 	        		
+    		<!-- 前台用户注册成功的映射页面 -->
+    		<result name="registerSucc">./login.jsp</result> 
+    		<!-- 退出 -->
+    		<result name="loginOut">/user/login_out.jsp</result>
+    		<!-- 查看我的信息 -->
+    		<result name="checkMyInfo">/user/userMsg.jsp</result>
+    		<!-- 查询所有用户 -->
+    		<result name="queryAllUser">/admin/jsp/manager_users/all_users_list.jsp</result>
+    	</action>
+    	
+    	 <!-- FlightInformation -->
+    	<action name="flightInfoAction" class="flightInformationAction">
+ 	    	<!-- 搜索机票的映射页面 -->
+	 	    <result name="bookingSearch">./user/booking/booking.jsp</result>
+	 	    <!-- 查询所有机票 -->
+	 	    <result name="queryAll">./user/booking/all_flight_list.jsp</result>
+	 	    <!-- 查询准备预订的航班信息 -->
+	 	    <result name="getId">./user/booking/bookingMsg.jsp</result>
+	 	    <!-- 查询航班详情 -->
+	 	    <result name="getFlightMsg">/user/booking/flightMsg.jsp</result>
+	 	    <!-- 通过航班号查航班信息 -->
+	 	    <result name="queryFlightByFlightName">/user/booking/booking.jsp</result>
+
+    	</action>	
+    	
+    	 <!-- Orders -->
+    	<action name="ordersManagerAction" class="ordersAction">
+ 	    	<!-- 订购成功的映射页面 -->
+	 	    <result name="orders_success">./user/orders/orders_success.html</result>
+	 	    <result name="queryMyOrders">./user/orders/ordersList.jsp</result>
+    	</action>	
+    	
+    	<!-- AdminUser -->
+    	<action name="adminManagerAction" class="adminUserAction">
+    		<!-- 登出 -->
+    		<result name="loginOut">/admin/longin_out_success.html</result>
+    		<!-- 更改用户 -->
+			<result name="changeAdmin">/admin/login/login.jsp</result>
+			<!-- 查询所有客机 -->
+			<result name="queryNoFlyingPlane">/admin/jsp/manager_flight/plane_select.jsp</result>
+			<!-- 查询所有航班 -->
+	 	    <result name="QueryAllFlightInfo">/admin/jsp/manager_flight/all_flight_list.jsp</result>
+	 	    <!-- 查询未起飞的航班 -->
+	 	    <result name="queryNotTakingOffFlight">/admin/jsp/manager_flight/Not_taking_off_flight.jsp</result>
+	 	    <!-- 查询已起飞航班 -->
+	 	    <result name="queryTakingOffFlight">/admin/jsp/manager_flight/taking_off_flight.jsp</result>
+	 	    <!-- 查询已取消航班 -->
+	 	    <result name="queryCancelFlight">/admin/jsp/manager_flight/cancel_flight.jsp</result>
+	 	    <!-- 查询所有管理员 -->
+	 	    <result name="queryAllAdmin">/admin/jsp/manager_admin/admin_list.jsp</result>
+    	</action>
+    	
+    	<!-- Plane -->
+    	<action name="planeManagerAction" class="planeAction">
+    		<!-- 查询所有客机 -->
+    		<result name="queryAllPlane">/admin/jsp/manager_plane/all_plane_list.jsp</result>
+    	</action>
+    	
+    </package>
+    
+    
+    
+      <package name="ajaxPackage" extends="json-default">
+      	<!-- Users -->
+    	<action name="userAjaxAction" class="usersAction">
+	    	<!-- 判断有没有重复 -->
+	    	<result name="checkRepeat" type="json">
+	 	    	<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param> 
+	   		</result>
+	   		
+	   		<!-- 登录 -->
+	   		<result name="login" type="json">
+	 	    	<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param> 
+	   		</result>
+	   		
+	   		<!-- 更新用户信息 -->
+	   		<result name="updateUserInfo" type="json">
+	 	    	<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param> 
+	   		</result>
+	   		
+   			<!-- 更新用户密码 -->
+   			<result name="updatePassword" type="json">
+   				<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+   			</result>
+   		  		
+    	</action>
+    	
+    <!-- Orders -->
+    	<action name="ordersAjaxAction" class="ordersAction">
+    		<result name="updateMyOrder" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<result name="delMyOrder" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    	</action>
+    	
+    <!-- adminUser -->
+    	<action name="adminAjaxAction" class="adminUserAction">
+    	<!-- 登录 -->
+    		<result name="login" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    	<!-- 添加航班 -->
+    		<result name="saveNewFlight" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 查询航班编号是否重复 -->
+    		<result name="checkFlightNameRepeat" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 保存航班信息 -->
+    		<result name="updateNewFlight" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 更新航班状态 -->
+    		<result name="updateFlightState" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 更新管理员手机号 -->
+    		<result name="updateAdminPhone" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    	</action>
+    	
+    	<!-- Plane -->
+    	<action name="planeAjaxAction" class="planeAction">
+    		<!-- 更新客机信息 -->
+    		<result name="updatePlane" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 删除客机信息 -->
+    		<result name="delPlane" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 保存新的客机信息 -->
+    		<result name="saveNewPlane" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    		
+    		<!-- 查询是否客机编号重复 -->
+    		<result name="checkPlaneNameRepeat" type="json">
+    			<param name="root"> 
+						result<!--  result是action中设置的变量名，也是页面需要返回的数据，该变量必须有setter和getter方法 --> 
+	 			</param>
+    		</result>
+    	</action>
+    	
+    </package>
+
+</struts>    

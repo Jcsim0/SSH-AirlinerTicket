@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";
+
+.share_category_wp {
+	width: 480px;
+	padding: 20px;
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	-khtml-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+	behavior: url(../../../ext/1401031623/ie-css3.htc);
+}
+
+.count_txt {
+	color: #B5B5B5;
+	text-align: right;
+}
+
+.count_txt strong {
+	font-family: georgia;
+	font-size: 24px;
+	padding: 0 2px;
+}
+
+.inputstyle {
+	height: 75px;
+	line-height: 18px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	width: 472px;
+}
+
+
+/**
+*检查反应的图标
+**/
+.checkIcon {
+	position: absolute;
+	right: 20px;
+	bottom: 5px;
+	z-index: 1;
+	margin-bottom: 0;
+}

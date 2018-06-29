@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd  
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd" >
+    
+	<!-- 配置数据源 -->  
+    <!-- 导入资源文件 -->  
+	<context:property-placeholder location="classpath:jdbc.properties"/>  
+
+	<bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"  value="${jdbc.driverClass}">
+		</property>		
+		<property name="url" value="${jdbc.jdbcUrl}">
+		</property>
+		<property name="username" value="${jdbc.user}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean> 
+
+	 
+<!--  整合 hibernate4 创建 SessionFactory 工厂 -->
+<!-- 配置Hibernate的SessionFactory，通过spring提供的 LocalSessionFactoryBean配置-->  
+	<bean id="sessionFactory"  class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		 <!-- 配置依赖的数据源属性 --> 
+		<property name="dataSource" ref="dataSource">
+		</property>
+		
+<!-- hibernate 配置文件的路径 -->  
+		<property name="configLocation"
+			value="classpath:hibernate.cfg.xml">
+		</property>
+		
+<!-- 设置 Spring 在哪里找 实体类 --> 
+	    <property name="packagesToScan">  
+	        <list>  
+	             <value>junJian.web.pojo</value>  
+	        </list>  
+	    </property>  
+    
+<!-- 配置 hibernate -->
+	  	<property name="hibernateProperties">
+	         <props>
+ 	            <prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop> 
+
+	         </props>
+	    </property>
+	</bean>
+	
+<!-- 配置 Spring 的事务管理 -->
+	<!-- 创建事务管理器 -->
+	 <!-- 配置 Spring 的声明式事物 --> <!--定义Hibernate的事务管理器HibernateTransactionManager -->
+	 
+	<!-- sessionFactory -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"> 
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean> 
+		
+	<!-- AdminUser -->
+	<bean id="adminUserDao" class="junJian.web.dao.AdminUserDAO" >  
+        <property name="sessionFactory" ref="sessionFactory"> </property>  
+	</bean>  
+	
+	<bean id="adminUserSeriverImpl" class="junJian.web.service.Impl.AdminUserServiceImpl">  
+	        <property name="adminUserDAO" ref="adminUserDao"></property>  
+	</bean>   
+	   
+	<bean id="adminUserAction" class="junJian.web.Action.AdminUserAction" >  
+	        <property name="adminUserService" ref="adminUserSeriverImpl"></property> 
+	        <property name="planeService" ref="planeSeriverImpl"></property> 
+	        <property name="flightInfoService" ref="flightInfoSeriverImpl"></property> 
+	</bean>
+	
+	<!-- FlightInformation -->
+	<bean id="flightInfoDao" class="junJian.web.dao.FlightInformationDAO" >  
+        <property name="sessionFactory" ref="sessionFactory"> </property>  
+	</bean>  
+	
+	<bean id="flightInfoSeriverImpl" class="junJian.web.service.Impl.FlightInfoServiceImpl">  
+	        <property name="flightInformationDAO" ref="flightInfoDao"></property>  
+	</bean>   
+	   
+	<bean id="flightInformationAction" class="junJian.web.Action.FlightInformationAction" >  
+	        <property name="flightInfoService" ref="flightInfoSeriverImpl"></property>  
+	</bean> 
+	
+	<!-- Orders -->
+	<bean id="ordersDao" class="junJian.web.dao.OrdersDAO" >  
+        <property name="sessionFactory" ref="sessionFactory"> </property>  
+	</bean>  
+	
+	<bean id="ordersSeriverImpl" class="junJian.web.service.Impl.OrdersServiceImpl">  
+	        <property name="ordersDAO" ref="ordersDao"></property>  
+	</bean>   
+	   
+	<bean id="ordersAction" class="junJian.web.Action.OrdersAction" >  
+	        <property name="ordersService" ref="ordersSeriverImpl"></property>
+	        <property name="usersService" ref="usersSeriverImpl"></property>  
+	        <property name="flightInfoService" ref="flightInfoSeriverImpl"></property>    
+	</bean>
+	
+	<!-- Plane -->
+	<bean id="planeDao" class="junJian.web.dao.PlaneDAO" >  
+        <property name="sessionFactory" ref="sessionFactory"> </property>  
+	</bean>  
+	
+	<bean id="planeSeriverImpl" class="junJian.web.service.Impl.PlaneServiceImpl">  
+	        <property name="planeDAO" ref="planeDao"></property>  
+	</bean>   
+	   
+	<bean id="planeAction" class="junJian.web.Action.PlaneAction" >  
+	        <property name="planeService" ref="planeSeriverImpl"></property>
+	        <property name="adminUserService" ref="adminUserSeriverImpl"></property>   
+	</bean>
+	
+	<!-- Users -->	
+     <bean id="usersDao" class="junJian.web.dao.UsersDAO" >  
+        <property name="sessionFactory" ref="sessionFactory"> </property>  
+	</bean>  
+	
+	<bean id="usersSeriverImpl" class="junJian.web.service.Impl.UsersServiceImpl">  
+	        <property name="dao" ref="usersDao"></property>  
+	</bean> 
+	     
+	<bean id="usersAction" class="junJian.web.Action.UsersAction" >  
+	        <property name="usersService" ref="usersSeriverImpl"></property>  
+	</bean> 
+
+	 <tx:annotation-driven transaction-manager="transactionManager"/> 
+	 
+</beans>

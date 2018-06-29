@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>header.html</title>
+
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="content-type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="../H-ui/lib/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="../js/clock.js"></script>
+<script type="text/javascript" src="../H-ui/static/h-ui/js/H-ui.js"></script>
+
+<link href="../H-ui/lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../H-ui/static/h-ui/css/H-ui.css" type="text/css">
+<link rel="stylesheet" href="../css/head.css" type="text/css">
+
+</head>
+
+<body>
+	<!-- 顶部导航栏 -->
+	<div class="mynavbar-wrapper">
+		<div class="mynavbar mynavbar-black">
+			<div class="container cl">
+				<span class="logos mynavbar-slogan " style="margin-left: 20px;"
+					id="clock"></span> <a class="logos mynavbar-logos f-l mr-10 hidden-xs" href="../index.jsp">君健航空</a>
+				<span class="logos mynavbar-slogan f-l mr-10 hidden-xs">安全&middot;快捷
+					&middot; 舒适</span>
+				<nav class="mynav mynavbar-mynav mynav-collapse" role="mynavigation"id="Hui-mynavbar">
+
+					<ul class="cl">
+						<li><a href="../index.jsp">首页</a></li>
+						<li class="dropDown dropDown_hover"><a href="#">关于我们<i
+								class="Hui-iconfont">&#xe6d5;</i></a>
+							<ul class="dropDown-menu menu radius box-shadow">
+								<li><a href="javascript:;">公司简介</a></li>
+								<li><a href="javascript:;">免责条款</a></li>
+								<li><a href="privacy.html">隐私保护</a></li>
+								<li><a href="registerAgreement.html">用户注册协议</a></li>
+							</ul></li>
+						<li style=" float:right; "><a href="../register.jsp">注册</a></li>
+						<li style=" float:right; "><a href="../login.jsp">登录</a></li>
+					</ul>
+
+				</nav>
+			</div>
+		</div>
+	</div>	
+</body>
+<script type=text/javascript>
+	var clock = new Clock();
+	clock.display(document.getElementById("clock"));
+	lay('#version').html('-v' + laydate.v);
+	laydate.render({
+		elem : '#startDate',
+		theme : '#393D49'
+	});
+</script>
+</html>

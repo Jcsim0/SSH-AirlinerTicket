@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+
+body {
+	font-size: 14px;
+	color: #333;
+	margin: 0;
+	padding: 0;
+}
+
+#wrapper {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: #e8f2ec;
+	box-shadow: 0 3px 9px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.24);
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	justify-content: left;
+	overflow: hidden;
+	font-size: 20px;
+}
+
+/**
+*左边显示栏
+*/
+#left-side {
+	height: 100%;
+	width: 50%;
+	display: flex;
+	-webkit-box-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	justify-content: center;
+}
+
+#left-side-ul {
+	width: 90%;
+	height: auto;
+	list-style: none;
+	font-size: 15px;
+}
+
+#left-side-ul li {
+	margin: 10px 10px;
+}
+
+#left-side-ul #num {
+	float: inline-start;
+	margin: 4px 0;
+}
+
+#left-side-ul div .input-group {
+	width: 150px;
+}
+/**
+*中间界线
+*/
+#border {
+	height: 80%;
+	width: 2px;
+	/* 	background-color: rgba(51, 51, 51, 0.2); */
+	background-color: #E74C3C;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+/**
+*右边显示栏
+*/
+#right-side {
+	height: 100%;
+	width: 50%;
+	overflow: hidden;
+	border-radius: 20px;
+	background-color: #a98e8e1a;
+	margin-right: 20px;
+}
+
+#right-side-table {
+	margin: 0 20px;
+	margin: 0 auto;
+}
+
+#right-side-table tr {
+	margin: 10px auto;
+	text-align:center;
+}
+
+#right-title {
+	width: 100%;
+	text-align: center;
+}
+
+#flight-name {
+	font-size: 25px;
+	color: #e41f1f;
+}
+
+#right-side #total {
+	background: #f6ea91cc;
+	height: 100%;
+	margin: 50px 0;
+}
+
+#right-side #total ul {
+	list-style-type: none;
+	font-size: 20px;
+}
+
+#right-side #total #moneyNum {
+	font-size: 30px;
+	color: #ec1111e6;
+}

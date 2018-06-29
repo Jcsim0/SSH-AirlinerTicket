@@ -1,0 +1,227 @@
+@CHARSET "utf-8";
+
+body {
+ color:#333;
+ font-family:Microsoft Yahei,arial,sans-serif;
+ background-color:#fff;
+ font-size:12px;
+ margin:0;
+ padding:0
+}
+
+p {
+ margin-top:10;
+ margin-bottom:10px;
+ line-height:180%
+}
+
+img {
+ border:0;
+ vertical-align:middle
+}
+
+a:active,a:link,a:visited {
+ color:#873d3d;
+ text-decoration:none
+}
+a:hover {
+ color:#333;
+ text-decoration:underline
+}
+
+form {
+ border:0;
+ margin:0;
+ padding:0;
+ display:inline
+}
+
+h1, h2, h3, h4, h5 {
+    margin: 0;
+    font-size: 12px;
+}
+
+.head{
+	height:56px;
+	min-width:990px;
+	margin:0;
+	border:0;
+	display:block
+}
+
+.logo{
+	margin:0 auto;
+	width:950px;
+	padding:0;
+	border:0;
+	display:block
+}
+
+.center
+{
+	 height:620px;
+	 padding-top:80px;
+	 margin-top:10px;
+	 background:url(../img/login_banner.jpg) top center no-repeat;
+}
+
+.login{
+	 width: 1300px;
+	 margin: 0 auto;
+	 padding: 0;
+	 border: 0;
+	 display: block;
+}
+
+.login-page{
+	 float: right;
+	 width: 420px;
+	 box-shadow: 0 5px 12px #ccc;
+	 margin: 0;
+	 padding: 0;
+	 border: 0;
+	 display: block;
+}
+
+div.login-page  h2 {
+   	height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    font-weight: 400;
+    float: left;
+	width: 420px;
+	text-align: center;
+	background-color: #5aa5f066;	
+	cursor: pointer;	
+	color: #fff;
+}
+
+div.login-page ul{
+	clear: both;
+	width: 100%;	
+	display: inline-block;	
+	padding-bottom: 10px;	
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+div.login-page span{
+	float: left;
+	width: auto;
+	text-align: right;
+	font-size: 16px;
+	line-height: 32px;
+	font-weight: bold;
+}
+
+input#loginSubmit{
+	cursor:pointer; 
+	height: 36px; 
+	width: 253px;
+	border: none;
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+	background-color: #ce3d3de6;
+	border-radius: 5px 5px 5px 5px;
+}
+
+span.forgetPassword-span {
+	color: #242830cc;
+}
+
+#forget{
+	color: #242830cc;
+}
+
+span.register-span{
+	color: #0f5295;
+	padding-left: 100px
+}
+
+.footer{
+	padding: 40px 0;
+	background-color:#E6E6FA ;
+	text-align: center;
+	line-height: 200%;
+	margin: auto 0;
+	border: 0;
+	display: block;
+}
+
+.footer a:active,.footer a:link,.footer a:visited {
+ color:#666;
+ text-decoration:none
+}
+
+.footer a:hover {
+ color:black;
+ text-decoration:underline
+}
+
+
+.fade {opacity: 0;
+	-webkit-transition: opacity .15s linear;
+	-o-transition: opacity .15s linear;
+	transition: opacity .15s linear}
+.fade.in {opacity: 1}
+.modal-open {overflow: hidden}
+.modal{ position:fixed; left:0; top:0; right:0; bottom:0; z-index:1040; display:none; overflow:hidden;-webkit-overflow-scrolling:touch; outline:0}
+.modal.fade .modal-dialog{
+	-webkit-transition: -webkit-transform .3s ease-out;
+	-o-transition: -o-transform .3s ease-out;
+	transition: transform .3s ease-out;
+	-webkit-transform: translate(0,-50%);
+	-ms-transform: translate(0,-50%);
+	-o-transform: translate(0,-50%);
+	transform: translate(0,-50%)}
+.modal.in .modal-dialog {
+	-webkit-transform: translate(0, 0);
+	-ms-transform: translate(0, 0);
+	-o-transform: translate(0, 0);
+	transform: translate(0, 0)}
+.modal-open .modal {overflow-x: hidden;overflow-y: auto}
+	.modal-backdrop {position: fixed;top: 0;right: 0;bottom: 0;left: 0;background-color: #000}
+	.modal-backdrop.fade {filter: alpha(opacity=0);opacity: 0}
+	.modal-backdrop.in {filter: alpha(opacity=50);opacity: .5}
+	.modal-dialog {position: relative;width: auto;margin: 10px}
+	.modal-content{position: relative;background-color: #fff;border: 1px solid #999;border: 1px solid rgba(0,0,0,.2);outline: 0;
+		-webkit-background-clip: padding-box;
+		background-clip: padding-box; 
+		-webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+		box-shadow: 0 3px 9px rgba(0,0,0,.5)}
+	
+		.modal-header {min-height: 16.42857143px;padding: 15px;border-bottom: 1px solid #eee; position:relative}
+		.modal-header .close{position:absolute; right:10px; top:10px}
+		.modal-header h3,.modal-header .modal-title{margin:0; padding:10px 0; font-size:16px}
+	
+		.modal-body {position:relative;padding: 15px;overflow-y:visible;word-break:break-all}
+			.modal-form {margin-bottom: 0}
+	
+		.modal-footer {padding:15px;margin-bottom: 0;text-align: right;background-color: #f5f5f5;border-top: 1px solid #eee;*zoom: 1}
+		.modal-footer:before,.modal-footer:after {display: table;content: ""}
+		.modal-footer:after {clear: both}
+		.modal-footer .btn + .btn {margin-left: 5px;margin-bottom: 0}
+		.modal-footer .btn-group .btn + .btn {margin-left: -1px}
+		.modal-footer .btn-block + .btn-block {margin-left: 0}
+		
+	.modal-scrollbar-measure {position: absolute;top: -9999px;width: 50px;height: 50px;overflow: scroll}
+	
+	.radius .modal-content{ border-radius:6px}
+	.radius .modal-footer{ border-bottom-left-radius:6px; border-bottom-right-radius:6px}
+	@media (min-width: 768px) {
+		.modal-dialog {width: 600px;margin: 30px auto}
+		.modal-content {-webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);box-shadow: 0 5px 15px rgba(0, 0, 0, .5)}
+		.modal-sm {width: 300px}
+	}
+	@media (min-width: 992px) {
+		.modal-lg {width: 900px}
+	}
+ 
+.modal-alert{position:fixed; right:auto; bottom:auto; width:300px; left:50%;margin-left:-150px; top:50%;margin-top:-30px; z-index:9999;background-color: #fff;border: 1px solid #999;border: 1px solid rgba(0,0,0,.2);outline: 0;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box; 
+	-webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
+	box-shadow: 0 3px 9px rgba(0,0,0,.5)}
+.modal-alert-info{padding:30px; text-align:center; font-size:14px; background-color:#fff}
