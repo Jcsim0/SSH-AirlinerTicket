@@ -78,6 +78,7 @@
 	        <property name="adminUserService" ref="adminUserSeriverImpl"></property> 
 	        <property name="planeService" ref="planeSeriverImpl"></property> 
 	        <property name="flightInfoService" ref="flightInfoSeriverImpl"></property> 
+	        <property name="ordersService" ref="ordersSeriverImpl"></property>
 	</bean>
 	
 	<!-- FlightInformation -->

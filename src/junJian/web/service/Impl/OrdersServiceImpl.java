@@ -58,6 +58,14 @@ public class OrdersServiceImpl implements OrdersService
 		// TODO Auto-generated method stub
 		ordersDAO.delete(orders);;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Orders> getAllOrders()
+	{
+		// TODO Auto-generated method stub
+		return ordersDAO.findAll();
+	}
 	
 
 }

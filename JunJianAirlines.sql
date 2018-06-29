@@ -1,56 +1,21 @@
 /*==============================================================*/
 /* DBMS name:      Microsoft SQL Server 2008                    */
-/* Created on:     2018/5/27 15:56:03                           */
+/* Created on:     2018/6/29 19:03:25                           */
 /*==============================================================*/
 
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('flightAddAdminId')
-          and type = 'TR')
-   drop trigger flightAddAdminId
-go
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('deleteData')
-          and type = 'TR')
-   drop trigger deleteData
-go
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('insertData')
-          and type = 'TR')
-   drop trigger insertData
-go
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('updateData')
-          and type = 'TR')
-   drop trigger updateData
-go
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('airAddAdminid')
-          and type = 'TR')
-   drop trigger airAddAdminid
-go
-
-if exists (select 1
-          from sysobjects
-          where id = object_id('addAdminId')
-          and type = 'TR')
-   drop trigger addAdminId
-go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
    where r.fkeyid = object_id('flightInformation') and o.name = 'FK_FLIGHTIN_UPDATE_ADMINUSE')
 alter table flightInformation
    drop constraint FK_FLIGHTIN_UPDATE_ADMINUSE
+go
+
+if exists (select 1
+   from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
+   where r.fkeyid = object_id('flightInformation') and o.name = 'FK_FLIGHTIN_RUNNINGON_PLANE')
+alter table flightInformation
+   drop constraint FK_FLIGHTIN_RUNNINGON_PLANE
 go
 
 if exists (select 1
@@ -86,6 +51,15 @@ if exists (select 1
            where  id = object_id('adminUser')
             and   type = 'U')
    drop table adminUser
+go
+
+if exists (select 1
+            from  sysindexes
+           where  id    = object_id('flightInformation')
+            and   name  = 'runningOn_FK'
+            and   indid > 0
+            and   indid < 255)
+   drop index flightInformation.runningOn_FK
 go
 
 if exists (select 1
@@ -165,9 +139,9 @@ go
 /* Table: adminUser                                             */
 /*==============================================================*/
 create table adminUser (
-   admin_id             int                  identity(20000,1)
-      constraint CKC_ADMIN_ID_ADMINUSE check (admin_id <= 29999),
+   admin_id             int                  not null,
    admin_name           varchar(20)          not null,
+   account              varchar(50)          not null,
    admin_password       varchar(20)          not null,
    admin_phone          varchar(20)          null,
    admin_type           int                  null,
@@ -215,31 +189,26 @@ go
 /* Table: flightInformation                                     */
 /*==============================================================*/
 create table flightInformation (
-   flight_id            int                  identity(40000,1),
-   admin_id             int                  null,
+   flight_id            int                  not null,
+   admin_id             int                  not null,
    plane_id             int                  not null,
    flight_name          varchar(10)          not null,
    fromCity             varchar(100)         not null,
    toCity               varchar(100)         not null,
    fromTerminal         varchar(10)          not null,
    toTerminal           varchar(10)          not null,
-   startDate            date                 not null,
-   statrTime            time                 not null,
-   arriveDate           date                 not null,
-   arriveTime           time                 not null,
+   startDate            datetime             not null,
+   statrTime            datetime             not null,
+   arriveDate           datetime             not null,
+   arriveTime           datetime             not null,
    duration             double precision     not null,
-   touristClassRemain   int                  not null default 0
-      constraint CKC_TOURISTCLASSREMAI_FLIGHTIN check (touristClassRemain >= 0),
-   businessClassRemain  int                  not null default 0
-      constraint CKC_BUSINESSCLASSREMA_FLIGHTIN check (businessClassRemain >= 0),
-   firstClassRemain     int                  not null default 0
-      constraint CKC_FIRSTCLASSREMAIN_FLIGHTIN check (firstClassRemain >= 0),
-   touristClassPrice    int                  not null
-      constraint CKC_TOURISTCLASSPRICE_FLIGHTIN check (touristClassPrice >= 0),
-   businessClassPrice   int                  not null
-      constraint CKC_BUSINESSCLASSPRIC_FLIGHTIN check (businessClassPrice >= 0),
-   firstClassPrice      int                  not null
-      constraint CKC_FIRSTCLASSPRICE_FLIGHTIN check (firstClassPrice >= 0),
+   touristClassRemain   int                  not null,
+   businessClassRemain  int                  not null,
+   firstClassRemain     int                  not null,
+   touristClassPrice    int                  not null,
+   businessClassPrice   int                  not null,
+   firstClassPrice      int                  not null,
+   fligth_state         varchar(50)          null,
    constraint PK_FLIGHTINFORMATION primary key nonclustered (flight_id)
 )
 go
@@ -379,19 +348,30 @@ admin_id ASC
 go
 
 /*==============================================================*/
+/* Index: runningOn_FK                                          */
+/*==============================================================*/
+create index runningOn_FK on flightInformation (
+plane_id ASC
+)
+go
+
+/*==============================================================*/
 /* Table: orders                                                */
 /*==============================================================*/
 create table orders (
-   orders_id            int                  identity(5000,1),
+   orders_id            int                  not null,
    flight_id            int                  not null,
    users_id             int                  not null,
-   ordersTime           varchar(100)         null,
+   ordersTime           varchar(50)          null,
    touristClassNum      int                  null default 0,
    businessClassNum     int                  null default 0,
    firstClassNum        int                  null default 0,
    totalNum             int                  null,
    totalPrice           int                  null,
    state                varchar(10)          null,
+   refundTime           varchar(50)          null,
+   conversion           varchar(50)          null,
+   refundOorConversion  varchar(50)          null,
    constraint PK_ORDERS primary key nonclustered (orders_id)
 )
 go
@@ -472,18 +452,15 @@ go
 /* Table: plane                                                 */
 /*==============================================================*/
 create table plane (
-   plane_id             int                  identity(30000,1),
-   admin_id             int                  null,
-   plane_name           varchar(10)          not null,
+   plane_id             int                  not null,
+   admin_id             int                  not null,
+   plane_name           varchar(6)           not null,
    type                 varchar(10)          not null,
-   buyDate              date                 not null,
-   useDate              date                 not null,
-   touristClassNum      int                  not null default 0
-      constraint CKC_TOURISTCLASSNUM_PLANE check (touristClassNum >= 0),
-   businessClassNum     int                  not null default 0
-      constraint CKC_BUSINESSCLASSNUM_PLANE check (businessClassNum >= 0),
-   firstClassNum        int                  not null default 0
-      constraint CKC_FIRSTCLASSNUM_PLANE check (firstClassNum >= 0),
+   buyDate              datetime             not null,
+   useDate              datetime             not null,
+   touristClassNum      int                  not null default 0,
+   businessClassNum     int                  not null default 0,
+   firstClassNum        int                  not null default 0,
    remark               varchar(100)         null,
    constraint PK_PLANE primary key nonclustered (plane_id)
 )
@@ -564,15 +541,15 @@ go
 /* Table: users                                                 */
 /*==============================================================*/
 create table users (
-   users_id             int                  identity(10000,1),
-   admin_id             int                  null,
+   users_id             int                  not null,
+   admin_id             int                  not null,
    name                 varchar(20)          not null,
-   phone                varchar(11)          not null,
+   phone                varchar(20)          not null,
    password             varchar(20)          not null,
    sex                  varchar(5)           null,
    idCard               varchar(18)          null,
    email                varchar(50)          null,
-   location             varchar(50)          null,
+   country              varchar(50)          null,
    constraint PK_USERS primary key nonclustered (users_id)
 )
 go
@@ -623,7 +600,7 @@ declare @CurrentUser sysname
 select @CurrentUser = user_name()
 execute sp_addextendedproperty 'MS_Description', 
    '地区',
-   'user', @CurrentUser, 'table', 'users', 'column', 'location'
+   'user', @CurrentUser, 'table', 'users', 'column', 'country'
 go
 
 /*==============================================================*/
@@ -637,6 +614,11 @@ go
 alter table flightInformation
    add constraint FK_FLIGHTIN_UPDATE_ADMINUSE foreign key (admin_id)
       references adminUser (admin_id)
+go
+
+alter table flightInformation
+   add constraint FK_FLIGHTIN_RUNNINGON_PLANE foreign key (plane_id)
+      references plane (plane_id)
 go
 
 alter table orders
@@ -657,187 +639,5 @@ go
 alter table users
    add constraint FK_USERS_MANAGER_ADMINUSE foreign key (admin_id)
       references adminUser (admin_id)
-go
-
-
-create trigger flightAddAdminId
-on flightInformation for insert 
-as
-update flightInformation set flightInformation.admin_id=(select admin_id from adminUser where admin_type=3)
-		from flightInformation,inserted
-		where flightInformation.flight_id=Inserted.flight_id
-go
-
-
-create trigger deleteData
-   on  orders
-   after delete
-as 
-begin
-/*更新座位剩余数量:加上删去的座位数量*/
-	update flightInformation set touristClassRemain=touristClassRemain
-                        +
-                        (select deleted.touristClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-                        ,
-                        businessClassRemain=businessClassRemain
-                        +
-                        (select deleted.businessClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-                        ,
-                        firstClassRemain=firstClassRemain
-                        +
-                        (select deleted.firstClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-		from deleted,flightInformation
-		where flightInformation.flight_id=deleted.flight_id
-
-end
-go
-
-
-create trigger insertData
-   on  orders
-   after insert
-as 
-begin
-/*更新座位剩余数量*/
-	update flightInformation set touristClassRemain=touristClassRemain 
-                        -
-                        (select inserted.touristClassNum 
-                        from inserted 
-		                where flightInformation.flight_id=Inserted.flight_id)
-                        ,
-                         businessClassRemain=businessClassRemain
-                        -
-                        (select businessClassNum 
-                        from inserted
-		                where flightInformation.flight_id=Inserted.flight_id)
-                        ,
-                        firstClassRemain=firstClassRemain
-                        -
-                        (select firstClassNum 
-                        from inserted
-		                where flightInformation.flight_id=Inserted.flight_id)
-		from inserted,flightInformation
-		where flightInformation.flight_id=Inserted.flight_id;
-
-/*更新所订购的数量*/
-	update orders set totalNum=Inserted.touristClassNum+Inserted.businessClassNum
-                          +Inserted.firstClassNum
-		from orders,Inserted
-		where orders.orders_id=Inserted.orders_id;
-
-/*更新总价格*/
-	update orders set totalPrice=orders.touristClassNum
-								*(select touristClassPrice 
-								from flightInformation,inserted
-								where inserted.flight_id=flightInformation.flight_id )
-								+
-								orders.businessClassNum
-								*
-								(select businessClassPrice 
-								from flightInformation,inserted
-								where inserted.flight_id=flightInformation.flight_id)
-								+
-								orders.firstClassNum
-								*
-								(select firstClassPrice 
-								from flightInformation,inserted
-								where inserted.flight_id=flightInformation.flight_id)
-		from orders,inserted
-		where orders.orders_id=Inserted.orders_id
-
-end
-go
-
-
-create trigger updateData
-   on  orders
-   after update
-as 
-begin
-/*更新购买的总数量*/
-	update orders set totalNum=Inserted.touristClassNum+Inserted.businessClassNum
-                          +Inserted.firstClassNum
-		from orders,Inserted
-		where orders.orders_id=Inserted.orders_id;
-	
-/*更新总价格*/
-	update orders set totalPrice=
-									orders.touristClassNum
-									*(select touristClassPrice 
-									from flightInformation,inserted
-									where inserted.flight_id=flightInformation.flight_id )
-									+
-									orders.businessClassNum
-									*
-									(select businessClassPrice 
-									from flightInformation,inserted
-									where inserted.flight_id=flightInformation.flight_id)
-									+
-									orders.firstClassNum
-									*
-									(select firstClassPrice 
-									from flightInformation,inserted
-									where inserted.flight_id=flightInformation.flight_id)
-		from orders,inserted
-		where orders.orders_id=Inserted.orders_id;
-
-/*更新座位剩余数量:先加上删去的座位，再减去购买的座位*/
-	update flightInformation set touristClassRemain=touristClassRemain
-                        +
-                        (select deleted.touristClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-						-
-                        (select inserted.touristClassNum 
-                        from inserted 
-		                where flightInformation.flight_id=Inserted.flight_id)
-                        ,
-                        businessClassRemain=businessClassRemain
-                        +
-                        (select deleted.businessClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-						 -
-                        (select businessClassNum 
-                        from inserted
-		                where flightInformation.flight_id=Inserted.flight_id)
-                        ,
-                        firstClassRemain=firstClassRemain
-                        +
-                        (select deleted.firstClassNum 
-                        from deleted
-		                where flightInformation.flight_id=deleted.flight_id)
-						-
-						(select firstClassNum 
-                        from inserted
-		                where flightInformation.flight_id=Inserted.flight_id)
-		from deleted,flightInformation,inserted
-		where flightInformation.flight_id=deleted.flight_id and flightInformation.flight_id=Inserted.flight_id
-
-end
-go
-
-
-create trigger planeAddAdminId
-on plane for insert 
-as
-update plane set plane.admin_id=(select admin_id from adminUser where admin_type=4)
-		from plane,inserted
-		where plane.plane_id=Inserted.plane_id
-go
-
-
-create trigger addAdminId
-on users after insert 
-as
-update users set users.admin_id=(select admin_id from adminUser where admin_type=2)
-		from users,inserted
-		where users.users_id=Inserted.users_id
 go
 

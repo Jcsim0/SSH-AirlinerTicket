@@ -16,4 +16,6 @@ public interface OrdersService
 	public Orders queryOrdersInfo(Integer id);
 	
 	public void delOrder(Orders orders);
+	
+	public List<Orders > getAllOrders();
 }

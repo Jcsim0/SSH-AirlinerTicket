@@ -73,6 +73,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</dd>
 			</dl>	
+			
+			<dl id="menu-orders">
+				<dt><i class="Hui-iconfont">&#xe60d;</i> 订单管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+				<dd>
+					<ul>
+						<li><a data-href="adminManagerAction!queryAllOrders" data-title="订单列表" href="javascript:void(0)">订单列表</a></li>
+					</ul>
+				</dd>
+			</dl>	
 
 			<dl id="menu-plane">
 				<dt><i class="Hui-iconfont">&#xe70c;</i> 客机管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>

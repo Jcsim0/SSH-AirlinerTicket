@@ -221,4 +221,8 @@ public class OrdersDAO extends BaseHibernateDAO {
 		queryObject.setParameter(0, id);
 		return queryObject.executeUpdate();
 	}
+	
+	/*public List<Object[]> findAllOrders(){
+		//String hql = "from Orders as o,FlightInformation as f,Users as u";
+	}*/
 }

@@ -58,6 +58,8 @@
 	 	    <result name="queryCancelFlight">/admin/jsp/manager_flight/cancel_flight.jsp</result>
 	 	    <!-- 查询所有管理员 -->
 	 	    <result name="queryAllAdmin">/admin/jsp/manager_admin/admin_list.jsp</result>
+	 	    <!-- 查询所有订单 -->
+	 	    <result name="queryAllOrders">/admin/jsp/manager_orders/all_orders_list.jsp</result>
     	</action>
     	
     	<!-- Plane -->

@@ -13,9 +13,11 @@ import org.apache.struts2.ServletActionContext;
 
 import junJian.web.pojo.AdminUser;
 import junJian.web.pojo.FlightInformation;
+import junJian.web.pojo.Orders;
 import junJian.web.pojo.Plane;
 import junJian.web.service.AdminUserService;
 import junJian.web.service.FlightInfoService;
+import junJian.web.service.OrdersService;
 import junJian.web.service.PlaneService;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -35,6 +37,8 @@ public class AdminUserAction extends ActionSupport
 	private PlaneService planeService;
 	private FlightInfoService flightInfoService;
 	private FlightInformation flightInformation;
+	private Orders orders;
+	private OrdersService ordersService;
 	
 	private String result;
 	
@@ -86,6 +90,22 @@ public class AdminUserAction extends ActionSupport
 	public void setFlightInformation(FlightInformation flightInformation)
 	{
 		this.flightInformation = flightInformation;
+	}
+	public Orders getOrders()
+	{
+		return orders;
+	}
+	public void setOrders(Orders orders)
+	{
+		this.orders = orders;
+	}
+	public OrdersService getOrdersService()
+	{
+		return ordersService;
+	}
+	public void setOrdersService(OrdersService ordersService)
+	{
+		this.ordersService = ordersService;
 	}
 	public String getResult()
 	{
@@ -388,5 +408,12 @@ public class AdminUserAction extends ActionSupport
 		 adminUserService.updateAdminPhone(adminUser);
 		 this.setResult("updateAdminPhoneSuccess");
 		 return "updateAdminPhone";
+	 }
+	 
+	 @SuppressWarnings("unchecked")
+	public String queryAllOrders(){
+		 List<Orders> list = ordersService.getAllOrders();
+		 ((Map<String, Object>) ActionContext.getContext().get("session")).put("all_orderssList", list);
+		 return "queryAllOrders";
 	 }
 }
