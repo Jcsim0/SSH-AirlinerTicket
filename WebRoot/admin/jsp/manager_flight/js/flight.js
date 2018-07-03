@@ -165,6 +165,7 @@ function cancelEdit(obj){
 	var o=$(obj).parents("tr");
 	 o.find("#edit").show();
 	 o.find("#cancelFlight").show();
+	 o.find("#flying").show();
 	 o.find("#submitt").hide(); 
 	 o.find("#cancelEdit").hide();
 	 

@@ -123,7 +123,7 @@ $(function(){
 
 function checkFlightNameRepeat(){
 	if($("#flightName").val()==''){
-		layer.msg('航班编号不可及为空', {icon : 0,time : 1000});
+		layer.msg('航班编号不可为空', {icon : 0,time : 1000});
 	}else{
 		$.ajax({
 			type : 'POST',

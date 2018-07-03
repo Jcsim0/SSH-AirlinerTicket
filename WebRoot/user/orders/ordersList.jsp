@@ -29,8 +29,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script type="text/javascript" src="<%=path %>/H-ui/lib/datatables/1.10.0/jquery.dataTables.min.js"></script> 
 	<script type="text/javascript" src="<%=path %>/H-ui/lib/laypage/1.2/laypage.js"></script>
-	<script type="text/javascript" src="<%=path %>/H-ui/lib/layer/2.4/layer.js"></script>
-	<script type="text/javascript" src="<%=path %>/H-ui/static/h-ui/js/H-ui.js"></script> 
+	
+	<script type="text/javascript" src="<%=path %>/H-ui/static/h-ui/js/H-ui.js"></script>
+	<script type="text/javascript" src="<%=path %>/H-ui/lib/layer/2.4/layer.js"></script> 
 	<script type="text/javascript" src="<%=path %>/user/orders/js/orders.js"></script>
 	<script type="text/javascript" src="<%=path %>/js/judgeLogin.js"></script>
 	<script type="text/javascript" src="<%=path %>/js/index.js"></script>

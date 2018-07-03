@@ -75,7 +75,7 @@ function updateOrder(obj){
 		success: function(data){
 		console.debug("data="+data);
 				//layer.msg('订单修改成功!', {icon:6,time:1000});
-				$.Huimodalalert("<i class=\'Hui-iconfont\'style=\'color:green;font-size:20px;\'>&#xe68e;</i><i style='color:black;'>订单修改成功!</i>",1000);
+				parent.$.Huimodalalert("<i class=\'Hui-iconfont\'style=\'color:green;font-size:20px;\'>&#xe68e;</i><i style='color:black;'>订单修改成功!</i>",1000);
 				parent.setTimeout('location.replace(location.href)',1500);
 				var index = parent.layer.getFrameIndex(window.name);
 				parent.layer.close(index); 
@@ -90,7 +90,8 @@ function updateOrder(obj){
 }
 
 function delOrder(obj,id){
-		layer.confirm('确认要删除吗？',function(index){
+		layer.confirm('确认要删除吗？',
+		function(index){
 			$.ajax({
 				type: 'POST',
 				url: 'ordersAjaxAction!delMyOrder',
@@ -100,19 +101,17 @@ function delOrder(obj,id){
 					console.debug(data);
 					$(obj).parents("tr").remove();
 					parent.$.Huimodalalert("<i class=\'Hui-iconfont\'style=\'color:green;font-size:20px;\'>&#xe68e;</i><i style='color:black;'>已删除!</i>",1000);
-					//parent.location.replace(parent.location.href);
-					var index = parent.layer.getFrameIndex(window.name);
-					//parent.$('.btn-refresh').click();
-					parent.layer.close(index); 
+					//var index = parent.layer.getFrameIndex(window.name);
+					//parent.layer.close(index); 
 				},
 				error:function(data) {
 					console.log(data);
 					$.Huimodalalert("<i class=\'Hui-iconfont\'style=\'color:red;font-size:20px;\'>&#xe691;</i><br>订单删除失败，稍后再试试吧!",1000);
 				},
-			});		
+			});
+			layer.close(index); 
 		});
 }
-
 
 /* =======================================================================
  * jQuery.Huimodalalert.js alert

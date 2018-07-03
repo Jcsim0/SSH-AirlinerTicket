@@ -180,27 +180,29 @@ function plane_change(name,type,buyDate,useDate,TN,BN,FN,remark,id){
  */
 function cancel(obj){
 	var o=$(obj).parents("tr");
-	 o.find("#edit").show();
-	 o.find("#submitt").hide();
-	 o.find("#cancel").hide();
-	 
-	 o.find("#planeNameInpu").hide();
-	 o.find("#planeTypeInput").hide(); 
-	 o.find("#planeBuyDateInput").hide();
-	 o.find("#planUseDateInput").hide();
-	 o.find("#planeTouristClassNumInput").hide();
-	 o.find("#planeBusinessClassNumInput").hide();
-	 o.find("#planeFirstClassNumInput").hide();
-	 o.find("#planeRemarkInputDiv").hide();
-	 
-	 o.find("#planeName").show();
-	 o.find("#planeType").show(); 
-	 o.find("#planeBuyDate").show();
-	 o.find("#planeUseDate").show();
-	 o.find("#planeTouristClassNum").show();
-	 o.find("#planeBusinessClassNum").show();
-	 o.find("#planeFirstClassNum").show();
-	 o.find("#planeRemark").show();
+	
+	o.find("#planeNameInput").hide();
+	o.find("#planeTypeInput").hide(); 
+	o.find("#planeBuyDateInput").hide();
+    o.find("#planUseDateInput").hide();
+    o.find("#planeTouristClassNumInput").hide();
+    o.find("#planeBusinessClassNumInput").hide();
+    o.find("#planeFirstClassNumInput").hide();
+    o.find("#planeRemarkInputDiv").hide();
+    
+    o.find("#planeName").show();
+	o.find("#planeType").show(); 
+	o.find("#planeBuyDate").show();
+    o.find("#planeUseDate").show();
+    o.find("#planeTouristClassNum").show();
+    o.find("#planeBusinessClassNum").show();
+    o.find("#planeFirstClassNum").show();
+    o.find("#planeRemark").show();
+
+    o.find("#edit").show();
+    o.find("#delect").show();
+    o.find("#submitt").hide(); 
+    o.find("#cancel").hide();
 }
 
 /**
